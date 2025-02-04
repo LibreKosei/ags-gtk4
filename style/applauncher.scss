@@ -1,0 +1,73 @@
+@use "sass:string";
+@use "colors" as *;
+
+@function gtkalpha($c, $a) {
+    @return string.unquote("alpha(#{$c},#{$a})");
+}
+
+// https://gitlab.gnome.org/GNOME/gtk/-/blob/gtk-3-24/gtk/theme/Adwaita/_colors-public.scss
+$fg-color: #{"@theme_fg_color"};
+$bg-color: #{"@theme_bg_color"};
+
+window#launcher {
+    all: unset;
+
+    box.Applauncher {
+        background-color: $surface-container-lowest;
+        border-radius: 11px;
+        margin: 1rem;
+        padding: .8rem;
+        box-shadow: 2px 3px 8px 0 gtkalpha(black, .4);
+        min-height: 550px;
+
+        button {
+            color: $on-surface;
+        }
+
+        entry {
+            margin-bottom: .8rem;
+            background-color: $on-surface;
+            border-radius: 24px;
+            padding: 12px;
+
+            placeholder, text {
+                color: $inverse-on-surface;
+            }
+        }
+
+        button {
+            min-width: 0;
+            min-height: 0;
+            padding: .5rem;
+
+            image {
+                -gtk-icon-size: 3em;
+                margin-right: .3rem;
+            }
+
+            label.name {
+                font-weight: bold;
+                font-size: 1.1em;
+                color: $on-surface;
+            }
+
+            label.description {
+                color: $outline;
+            }
+        }
+
+        box.not-found {
+            padding: 1rem;
+
+            image {
+                -gtk-icon-size: 6em;
+                color: $error;
+            }
+
+            label {
+                color: $error;
+                font-size: 1.2em;
+            }
+        }
+    }
+}

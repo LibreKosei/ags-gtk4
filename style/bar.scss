@@ -1,0 +1,95 @@
+@use "colors" as *;
+
+window.Bar {
+    background: $surface;
+    border-radius: 24px;
+    padding: 0 16px;
+
+    label {
+        color: $on-surface;
+    }
+
+    applet {
+        background: $surface-container;
+        color: $on-surface;
+        border-radius: 24px;
+        padding: 6px;
+        label {
+            color: $on-surface;
+        }
+    }
+
+    box {
+        > applet {
+            margin: 0 10px;
+        }
+    }
+
+    separator {
+        background-color: $on-surface-variant;
+        min-width: 1px;
+        margin: 5px;
+    }
+
+    workspace {
+        background: $surface-container;
+        border-radius: 24px;
+        padding: 6px;
+        color: $on-surface;
+        margin-right: 20px;
+    }
+    
+    tooltip {
+        color: $inverse-surface;
+    }
+
+    popover {
+        background-color: $surface-bright;
+        color: $on-surface;
+        min-width: 45px;
+        border-radius: 15px;
+        contents {
+            min-height: 150px;
+            margin: 5px;
+
+            calendar {
+                grid {
+                    label.day-number.other-month {
+                        color: transparent;
+                    }
+                    
+                    label.day-number.today {
+                        background-color: $primary-container;
+                        color: $on-primary-container;
+                    }
+                }
+            }
+
+            bluetooth-device {
+                image {
+                    -gtk-icon-size: 16px;
+                    color: $on-surface;
+                }
+            }
+
+            > scale {
+                > trough {
+                    background-color: $surface-container;
+                    min-width: 15px;
+                    border-radius: 15px;
+
+                    > highlight {
+                        background-color: $on-surface;
+                    }
+                    
+                    > slider {
+                        min-height: 15px;
+                        min-width: 15px;
+                        background-color: $on-surface;
+                        border-radius: 15px;
+                    }
+                }
+            }
+        }
+    }
+}
