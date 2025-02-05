@@ -13,6 +13,7 @@ const css = "/tmp/gtkstyle.css"
 execAsync(`sass ${scss} ${css}`)
 
 App.start({
+    iconTheme: "Papirus",
     css: style,
     instanceName: "ags-gtk4",
     main() {
