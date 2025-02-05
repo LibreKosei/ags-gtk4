@@ -1,14 +1,10 @@
-import { Variable } from "astal";
-import { Speaker, Audio, Volume } from "./modules/audio";
+import { Audio } from "./modules/audio";
 import { Bat } from "./modules/battery";
-import { Wifi, WifiIndicator } from "./modules/network";
+import { WifiIndicator } from "./modules/network";
 import { WS } from "./modules/workspace";
 import { App, Astal, Gtk } from "astal/gtk4";
-import { Bluetooth } from "./modules/bluetooth";
 import { Datemenu } from "./modules/datemenu";
 
-
-const time = Variable("").poll(1000, `date "+%H:%M"`)
 
 export const Bar = () => {
     const { TOP, LEFT, RIGHT, BOTTOM } = Astal.WindowAnchor
@@ -30,7 +26,6 @@ export const Bar = () => {
                 <WifiIndicator />
                 <Bat />
                 </box>
-                <Bluetooth />
             </box>
             </centerbox>
         </box>
