@@ -25,6 +25,7 @@ function AppButton({ app }: { app: Apps.Application }) {
                 />
                 {app.description && <label
                     cssClasses={["description"]}
+                    maxWidthChars={35}
                     wrap
                     xalign={0}
                     label={app.description}
@@ -51,6 +52,7 @@ export default function Applauncher() {
         keymode={Astal.Keymode.ON_DEMAND}
         layer={Astal.Layer.OVERLAY}
         application={App}
+        defaultHeight={600}
         animation="slide down"
         onShow={() => {
             text.set("")
