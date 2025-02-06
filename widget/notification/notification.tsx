@@ -1,10 +1,11 @@
 import { GLib } from "astal"
-import { Gtk, Astal } from "astal/gtk4"
+import { Gtk } from "astal/gtk4"
 import Notifd from "gi://AstalNotifd"
+import { Scrollable } from "../../util/astalified"
 
 const isIcon = (icon: string) => {
     const it = Gtk.IconTheme.new()
-    return !!it.lookup_icon(icon, ["image-missing-symbolic"], 40, 1, null, null)
+    return it.has_icon(icon)
 }
 
 const fileExists = (path: string) =>
@@ -44,7 +45,7 @@ export default function Notification(props: Props) {
         onHoverLeave={onHoverLeave}>
         <box vertical>
             <box cssClasses={["header"]}>
-                {(n.appIcon || n.desktopEntry) && <image
+                {(isIcon(n.appIcon) || n.desktopEntry) && <image
                     cssClasses={["app-icon"]}
                     visible={Boolean(n.appIcon || n.desktopEntry)}
                     iconName={n.appIcon || n.desktopEntry}
@@ -93,7 +94,8 @@ export default function Notification(props: Props) {
                         halign={START}
                         xalign={0}
                         label={n.body}
-                    />}
+                        maxWidthChars={30}
+                      />}
                 </box>
             </box>
             {n.get_actions().length > 0 && <box cssClasses={["actions"]}>

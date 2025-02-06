@@ -5,7 +5,6 @@ import { WS } from "./modules/workspace";
 import { App, Astal, Gtk } from "astal/gtk4";
 import { Datemenu } from "./modules/datemenu";
 
-
 export const Bar = () => {
     const { TOP, LEFT, RIGHT, BOTTOM } = Astal.WindowAnchor
 
