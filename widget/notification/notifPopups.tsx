@@ -11,7 +11,7 @@ export const NotificationPopup = () => {
 
     return (
         <PopupWindow
-            name={"notification-popup"}
+            name={"NotificationPopups"}
             cssClasses={["NotificationPopups"]}
             application={App}
             animation="slide right"

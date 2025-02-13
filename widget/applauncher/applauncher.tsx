@@ -1,6 +1,6 @@
 import Apps from "gi://AstalApps"
 import { App, Astal, Gdk, Gtk } from "astal/gtk4"
-import { bind, Variable } from "astal"
+import { Variable } from "astal"
 import { MaterialSymbol } from "../../util/Material"
 import { PopupWindow } from "../PopupWindow"
 

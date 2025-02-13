@@ -6,7 +6,7 @@ import { App, Astal, Gtk } from "astal/gtk4";
 import { Datemenu } from "./modules/datemenu";
 
 export const Bar = () => {
-    const { TOP, LEFT, RIGHT, BOTTOM } = Astal.WindowAnchor
+    const { TOP } = Astal.WindowAnchor
 
     return <window
         visible
@@ -15,7 +15,7 @@ export const Bar = () => {
         anchor={ TOP }
         application={App} 
     >
-        <box spacing={30} hexpand widthRequest={1200}>
+        <box spacing={30} hexpand widthRequest={800}>
             <centerbox hexpand halign={Gtk.Align.FILL}>
             <WS />
             <Datemenu />

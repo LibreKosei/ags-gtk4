@@ -25,7 +25,7 @@ Notification {
 
     // eventboxes can not take margins so we style its inner box instead
     >box {
-        min-width: 250px;
+        min-width: 275px;
         border-radius: 13px;
         background-color: $surface-container;
         margin: .5rem 1rem .5rem 1rem;
@@ -79,7 +79,8 @@ Notification {
 
     separator {
         margin: 0 .4rem;
-        background-color: $outline-variant;
+        background: $outline;
+        min-height: 1px;
     }
 
     .content {

@@ -2,6 +2,7 @@ import { GLib } from "astal"
 import { Gtk } from "astal/gtk4"
 import Notifd from "gi://AstalNotifd"
 import { Scrollable } from "../../util/astalified"
+import Pango from "gi://Pango?version=1.0"
 
 const isIcon = (icon: string) => {
     const it = Gtk.IconTheme.new()
@@ -45,10 +46,10 @@ export default function Notification(props: Props) {
         onHoverLeave={onHoverLeave}>
         <box vertical>
             <box cssClasses={["header"]}>
-                {(isIcon(n.appIcon) || n.desktopEntry) && <image
+                {(n.appIcon || n.desktopEntry) && <image
                     cssClasses={["app-icon"]}
-                    visible={Boolean(n.appIcon || n.desktopEntry)}
-                    iconName={n.appIcon || n.desktopEntry}
+                    visible={!!(n.appIcon || n.desktopEntry)}
+                    iconName={n.appIcon.toLowerCase() || n.desktopEntry.toLowerCase()}
                 />}
                 <label
                     cssClasses={["app-name"]}
@@ -67,7 +68,7 @@ export default function Notification(props: Props) {
                 </button>
             </box>
             <Gtk.Separator visible />
-            <box cssClasses={["content"]}>
+            <box cssClasses={["content"]} vexpand>
                 {n.image && fileExists(n.image) && <image
                     valign={START}
                     cssClasses={["image"]}
@@ -78,23 +79,35 @@ export default function Notification(props: Props) {
                     hexpand={false}
                     valign={START}
                     cssClasses={["icon-image"]}>
-                    <image iconName={n.image} hexpand vexpand halign={CENTER} valign={CENTER} />
+                    <image 
+                      iconName={n.image} 
+                      hexpand 
+                      vexpand 
+                      halign={CENTER} 
+                      valign={CENTER} 
+                      iconSize={Gtk.IconSize.LARGE}
+                    />
                 </box>}
-                <box vertical>
+                <box vertical vexpand>
                     <label
                         cssClasses={["summary"]}
+                        maxWidthChars={30}
+                        ellipsize={Pango.EllipsizeMode.END}
+                        wrap
                         halign={START}
                         xalign={0}
                         label={n.summary}
                     />
                     {n.body && <label
                         cssClasses={["body"]}
+                        maxWidthChars={30}
+                        ellipsize={Pango.EllipsizeMode.END}
+                        lines={10}
                         wrap
                         useMarkup
                         halign={START}
                         xalign={0}
                         label={n.body}
-                        maxWidthChars={30}
                       />}
                 </box>
             </box>
