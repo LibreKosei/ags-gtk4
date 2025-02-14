@@ -19,3 +19,22 @@ function deepMerge(target: object, ...sources: object[]): any {
     
     return deepMerge(target, ...sources);
 }
+
+function makeJson(key: string, value: unknown) {
+    const keyArray = key.split(".")
+
+    if (keyArray.length === 1) return { [key] : value }
+
+    let json = {}
+    let temp = json
+    let lastIndex = keyArray.length - 1 
+    
+    for (let i = 0; i < lastIndex; i++) {
+        temp[keyArray[i]] = {}
+        temp = temp[keyArray[i]]
+    }
+    
+    temp[keyArray[lastIndex]] = value
+
+    return json
+}

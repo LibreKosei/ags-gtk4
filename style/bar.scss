@@ -2,7 +2,6 @@
 
 window.Bar {
     background: $surface;
-    border-radius: 24px;
     padding: 0 16px;
 
     label {
@@ -10,12 +9,12 @@ window.Bar {
     }
 
     applet {
-        background: $surface-container;
-        color: $on-surface;
+        background: $primary;
+        color: $on-primary;
         border-radius: 24px;
         padding: 6px;
         label {
-            color: $on-surface;
+            color: $on-primary;
         }
     }
 
@@ -26,7 +25,7 @@ window.Bar {
     }
 
     separator {
-        background-color: $on-surface-variant;
+        background-color: $on-primary;
         min-width: 1px;
         margin: 5px;
     }
@@ -35,8 +34,7 @@ window.Bar {
         background: $surface-container;
         border-radius: 24px;
         padding: 6px;
-        color: $on-surface;
-        margin-right: 20px;
+        color: $primary;
     }
     
     tooltip {

@@ -34,7 +34,7 @@ const Icon = ({i} : Props) => {
 
 export const WS = () => {
     return <box
-        cssName="workspace"
+        cssName="applet"
         spacing={5}
         halign={Gtk.Align.START}  
     >
