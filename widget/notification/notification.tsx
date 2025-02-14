@@ -1,7 +1,6 @@
 import { GLib } from "astal"
 import { Gtk } from "astal/gtk4"
 import Notifd from "gi://AstalNotifd"
-import { Scrollable } from "../../util/astalified"
 import Pango from "gi://Pango?version=1.0"
 
 const isIcon = (icon: string) => {
@@ -93,15 +92,13 @@ export default function Notification(props: Props) {
                         cssClasses={["summary"]}
                         maxWidthChars={30}
                         ellipsize={Pango.EllipsizeMode.END}
-                        wrap
                         halign={START}
                         xalign={0}
                         label={n.summary}
                     />
                     {n.body && <label
                         cssClasses={["body"]}
-                        maxWidthChars={30}
-                        ellipsize={Pango.EllipsizeMode.END}
+                        maxWidthChars={50}
                         lines={10}
                         wrap
                         useMarkup
