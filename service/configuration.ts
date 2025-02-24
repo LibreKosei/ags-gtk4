@@ -2,39 +2,23 @@ function isObject(item: any) {
     return (item && typeof item === 'object' && !Array.isArray(item));
 }
 
-function deepMerge(target: object, ...sources: object[]): any {
-    if (!sources.length) return target;
-    const source = sources.shift();
-
-    if (isObject(source)) {
-        for (const key in source) {
-            if (isObject(source[key])) {
-                if (!target[key]) Object.assign(target, { [key]: {} });
-                deepMerge(target[key], source[key]);
-            } else {
-                Object.assign(target, { [key]: source[key] });
-            }
-        }
-    }
-    
-    return deepMerge(target, ...sources);
+function deepMerge(target: object, ...sources: object[]): object {
+    return sources.reduceRight((acc, source) =>
+        Object.entries(source || {}).reduce((a, [key, value]) => ({
+            ...a,
+            [key]: a[key] && typeof a[key] === "object" ? deepMerge(a[key], value) : value
+        }), acc), target);
 }
 
-function makeJson(key: string, value: unknown) {
+function makeJSON(key: string, value: unknown) {
     const keyArray = key.split(".")
+    return keyArray.reduceRight((acc, key) => ({ [key] : acc}), value)
+}
 
-    if (keyArray.length === 1) return { [key] : value }
-
-    let json = {}
-    let temp = json
-    let lastIndex = keyArray.length - 1 
-    
-    for (let i = 0; i < lastIndex; i++) {
-        temp[keyArray[i]] = {}
-        temp = temp[keyArray[i]]
-    }
-    
-    temp[keyArray[lastIndex]] = value
-
-    return json
+function accessJSON(keys: string, json: object) {
+    const keyArray = keys.split(".")
+    return keyArray.reduce(
+        (acc, key) => (acc && key in acc ? acc[key] : null),
+        json
+    )
 }

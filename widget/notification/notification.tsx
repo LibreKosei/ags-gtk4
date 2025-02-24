@@ -1,4 +1,4 @@
-import { GLib } from "astal"
+import { bind, GLib } from "astal"
 import { Gtk } from "astal/gtk4"
 import Notifd from "gi://AstalNotifd"
 import Pango from "gi://Pango?version=1.0"
@@ -40,6 +40,7 @@ export default function Notification(props: Props) {
         cssClasses={[`Notification ${urgency(n)}`]}
         setup={setup}
         hexpand={false}
+        vexpand={false}
         cssName="Notification"
         widthRequest={250}
         onHoverLeave={onHoverLeave}>
