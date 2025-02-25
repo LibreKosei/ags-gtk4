@@ -16,7 +16,6 @@ export const Datemenu = () => {
                 <MaterialSymbol
                     icon={bind(notifd, "notifications").as(notifs => notifs.length === 0 ? "notifications" : "notifications_active")}
                 />
-                <Gtk.Separator orientation={Gtk.Orientation.VERTICAL} visible />
                 <label label={time()} />
             </box>
             <popover>
