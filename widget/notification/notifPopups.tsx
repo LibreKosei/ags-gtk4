@@ -14,6 +14,9 @@ export const NotificationPopup = () => {
             name={"NotificationPopups"}
             cssClasses={["NotificationPopups"]}
             application={App}
+            exclusivity={Astal.Exclusivity.IGNORE}
+            keymode={Astal.Keymode.ON_DEMAND}
+            marginTop={10}
             animation="slide right"
             anchor={TOP | RIGHT}
             setup={(self) => {
