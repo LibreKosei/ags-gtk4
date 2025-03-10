@@ -45,3 +45,29 @@ export const WS = () => {
         )}
     </box>
 }
+
+export const Workspaces = () => {
+    const hypr = Hyprland.get_default()
+
+    return <box cssName="workspaces">
+    {range(9).map(i => 
+        <label
+            valign={Gtk.Align.CENTER}
+            cssName="ws"
+            setup={self => {
+                if (self.label === String(hypr.focusedWorkspace.id)) self.cssClasses = ["active"];
+                hook(self, hypr, "notify", () => {
+                    if (hypr.focusedWorkspace.id === i) {
+                        self.cssClasses = ["active"]
+                    } else if (hypr.get_workspace(i)?.clients.length > 0) {
+                        self.cssClasses = ["occupied"]
+                    } else {
+                        self.cssClasses = [""]
+                    }
+                })
+            }}
+            label={i.toString()}
+        />
+    )}
+    </box>
+}

@@ -1,7 +1,10 @@
+@use 'sass:color';
 @use "colors" as *;
 
+$overlay-color: $on-primary;
+
 window.Bar {
-    background: $surface;
+    background: transparentize($color: $surface, $amount: 0.8);
     padding: 0 16px;
 
     label {
@@ -24,12 +27,28 @@ window.Bar {
         }
     }
 
-    separator {
-        background-color: $on-primary;
-        min-width: 1px;
-        margin: 5px;
-    }
+    workspaces {
+        background-color: $surface-variant;
+        border-radius: 1rem;
+        padding: 1rem 0;
+        ws {
+            font-size: 0;
+            margin: 0 0.25rem;
+            background-color: $tertiary;
+            min-width: 0.6rem;
+            min-height: 0.6rem;
+            border-radius: 0.3rem;
 
+            &.active {
+                background-color: $primary;
+                min-width: 1.2rem;
+            }
+
+            &.occupied {
+                background-color: $secondary;
+            }
+        }
+    }
     workspace {
         background: $surface-container;
         border-radius: 24px;
@@ -42,7 +61,7 @@ window.Bar {
     }
 
     popover {
-        background-color: $surface-bright;
+        background-color: $surface;
         color: $on-surface;
         min-width: 45px;
         border-radius: 15px;
@@ -62,14 +81,6 @@ window.Bar {
                     }
                 }
             }
-
-            bluetooth-device {
-                image {
-                    -gtk-icon-size: 16px;
-                    color: $on-surface;
-                }
-            }
-
             > scale {
                 > trough {
                     background-color: $surface-container;
@@ -87,6 +98,44 @@ window.Bar {
                         border-radius: 15px;
                     }
                 }
+            }
+        }
+    }
+    overlay {
+        margin-left: 1em;    
+        border-radius: 1em;
+        color: $on-primary;
+        image {
+            color: $on-primary;
+        }
+
+        label {
+            color: $overlay-color;
+
+            &.half {
+                color: $inverse-primary
+            }
+        }
+    }
+    levelbar {
+        trough {
+
+            & .filled {
+                border-radius: 0.5em;
+                background-color: $primary;
+            }
+
+            & .filled.medium {
+                background-color: color.mix($primary, lightgreen, 60%);
+            }
+
+            & .filled.my-low, .filled.low {
+                background-color: $error;
+            }
+
+            & .empty {
+                border-radius: 1em;
+                background-color: $surface-variant;
             }
         }
     }

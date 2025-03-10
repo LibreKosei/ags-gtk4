@@ -20,7 +20,7 @@ export const Datemenu = () => {
             </box>
             <popover>
                 <box>
-                    <box vertical vexpand widthRequest={350}>
+                    <box vertical  widthRequest={350}>
                         <centerbox>
                             <label label="notifications" halign={Gtk.Align.START} />
                             <box visible={false} />
@@ -34,16 +34,21 @@ export const Datemenu = () => {
                               </box>
                             </button>
                         </centerbox>
-                        <Scrollable heightRequest={200}>
-                            <box vertical>
-                                {bind(notifd, "notifications").as(notifs =>
-                                  notifs.sort((a, b) => b.time - a.time)
-                                        .map(n => Notification({notification: n})
-                                  ))
-                                }
-                            </box>
-                        </Scrollable>
-                        <label label="0 Notifications" visible={bind(notifd, "notifications").as(notifs => notifs.length === 0)}/>
+                        <box>
+                        {bind(notifd, "notifications").as(notifs => {
+                            return <Scrollable heightRequest={200}>
+                                <box vertical>
+                                    {notifs.sort((a, b) => b.time - a.time)
+                                           .map(n => Notification({notification: n}))}
+                                </box>
+                            </Scrollable>
+                        })}
+                        </box>
+                        <label 
+                            label="No notification" 
+                            visible={bind(notifd, "notifications").as(notifs => notifs.length === 0)}
+                            halign={Gtk.Align.CENTER}
+                        />
                     </box>
                     <Calendar widthRequest={350} heightRequest={250}/>
                 </box>

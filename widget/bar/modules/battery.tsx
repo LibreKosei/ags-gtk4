@@ -1,7 +1,8 @@
 import Battery from "gi://AstalBattery";
 import { MaterialSymbol } from "../../../util/Material";
 import { bind } from "astal";
-import { hook } from "astal/gtk4";
+import { Gtk, hook } from "astal/gtk4";
+import { ProgressBar } from "../../../util/astalified";
 
 const battery_icons = {
     charging: {
@@ -58,5 +59,41 @@ export const Bat = () => {
             icon={matchBatL(battery.percentage * 100, battery.charging)}
         />
         <label label={bind(battery, "percentage").as(p => `${Math.floor(p * 100)}%`)} />
+    </box>
+}
+
+export const BatteryBar = () => {
+    const battery = Battery.get_default()
+
+    return <box valign={Gtk.Align.CENTER}>
+    <overlay heightRequest={20}>
+        <levelbar
+            setup={self => {
+                self.add_offset_value("my-low", 0.4)
+                self.add_offset_value("medium", 0.6)
+            }}
+            value={bind(battery, "percentage")}
+            widthRequest={100}
+        />
+        <MaterialSymbol setup={self => {
+            hook(self, battery, "notify", () => {
+                self.label = matchBatL(battery.percentage * 100, battery.charging)
+            })
+        }} 
+            icon={matchBatL(battery.percentage * 100, battery.charging)}
+            type="overlay"
+            halign={Gtk.Align.START}
+        />
+        <label 
+            label={bind(battery, "percentage").as(p => `${Math.floor(p * 100)}%`)}
+            setup={self => {
+                hook(self, battery, "notify", () => {
+                    if (battery.percentage <= 0.5) self.cssClasses = ["half"]
+                })
+            }}
+            type="overlay" 
+            halign={Gtk.Align.CENTER}
+        />
+    </overlay>
     </box>
 }

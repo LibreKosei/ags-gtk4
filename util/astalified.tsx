@@ -8,3 +8,5 @@ export const Calendar = astalify<Gtk.Calendar, Gtk.Calendar.ConstructorProps>(Gt
 })
 
 export const Scrollable = astalify(Gtk.ScrolledWindow)
+
+export const ProgressBar = astalify(Gtk.ProgressBar)
