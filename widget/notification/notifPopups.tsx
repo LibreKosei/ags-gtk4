@@ -1,9 +1,24 @@
-import { Astal, Gtk, Gdk, App, hook, Widget } from "astal/gtk4"
+import { Astal, App, hook, Widget, Gtk } from "astal/gtk4"
 import Notifd from "gi://AstalNotifd"
 import Notification from "./notification"
-import { timeout, Variable } from "astal"
-import { bind, Subscribable } from "astal/binding"
+import { timeout } from "astal"
 import { PopupWindow } from "../PopupWindow"
+
+function NotifPopupWidgets() {
+    const notifd = Notifd.get_default()
+    const parent: Gtk.Box = Widget.Box({vertical: true})
+    const map: Map<number, Gtk.Widget> = new Map()
+
+    function notify() {
+        
+    }
+    function remove(key: number) {
+        const child = map.get(key)!
+        if (child) {
+            parent.remove(child)
+        }
+    } 
+}
 
 export const NotificationPopup = () => {
     const { TOP, RIGHT } = Astal.WindowAnchor
@@ -30,7 +45,7 @@ export const NotificationPopup = () => {
 
                     self.set_child(
                         <box vertical>
-                            {Notification({notification: notifd.get_notification(id!)})}
+                            {Notification({notification: notifd.get_notification(id!)!})}
                             <box vexpand/>
                         </box>
                     )
@@ -47,9 +62,7 @@ export const NotificationPopup = () => {
                 }
 
                 hook(self, notifd, "notified", (_, id: number) => {
-                    if (notifd.dont_disturb && 
-                        notifd.get_notification(id).urgency != Notifd.Urgency.CRITICAL
-                    ) {return}
+                    if (notifd.dont_disturb) {return}
 
                     notificationQueue.push(id)
                     processQueue()

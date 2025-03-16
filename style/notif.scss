@@ -1,4 +1,5 @@
 @use "sass:string";
+@use "sass:color";
 @use "colors" as *;
 
 @function gtkalpha($c, $a) {
@@ -11,6 +12,37 @@ $bg-color: #{"@theme_bg_color"};
 
 window.NotificationPopups {
     all: unset;
+    margin-top: 40px;
+}
+
+notification {
+    >box {
+        min-width: 300px;
+        background-color: $surface-bright;
+        border-radius: 1rem;
+        box-shadow: 2px 3px 8px 0 gtkalpha(black, .4);
+        border: 1pt solid gtkalpha($fg-color, .03);
+        >image {
+            -gtk-icon-size: 6rem;
+            margin: 1.5rem 0.2rem 0 0.5rem;
+        }
+        
+        >box {
+            margin: 0.5rem;
+            header {
+                color: $on-surface;
+                font-size: 1.3rem;
+            }
+
+            >box {
+                content {
+                    background-color: $on-surface-variant;
+                }
+            }
+        }
+    }
+
+
 }
 
 Notification {
@@ -96,7 +128,7 @@ Notification {
             color: $on-surface;
         }
 
-        .image {
+        image {
             margin-right: .5rem;
             border-radius: 9px;
             min-width: 100px;

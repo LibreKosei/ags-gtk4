@@ -5,6 +5,7 @@ import { exec, execAsync, monitorFile } from "astal"
 import Applauncher from "./widget/applauncher/applauncher"
 import { NotificationPopup } from "./widget/notification/notifPopups"
 import { windowAnimation } from "./util/hyprland"
+import { Menu } from "./widget/menu/main"
 
 
 const scss = "./style/style.scss"
@@ -22,6 +23,7 @@ App.start({
         App.get_monitors().map(Bar)
         App.get_monitors().map(Applauncher)
         App.get_monitors().map(NotificationPopup)
+        App.get_monitors().map(Menu)
 
         windowAnimation()
         monitorFile("./style/", () => {

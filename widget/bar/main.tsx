@@ -3,7 +3,7 @@ import { Bat, BatteryBar } from "./modules/battery";
 import { WifiIndicator } from "./modules/network";
 import { Workspaces, WS } from "./modules/workspace";
 import { App, Astal, Gtk } from "astal/gtk4";
-import { Datemenu } from "./modules/datemenu";
+import { Datemenu, DateWidget } from "./modules/datemenu";
 import { Client } from "./modules/client";
 
 export const Bar = () => {
@@ -22,7 +22,7 @@ export const Bar = () => {
                 <Client halign={Gtk.Align.START}/>
             </box>
             <box spacing={10} halign={Gtk.Align.CENTER} >
-                <Datemenu />
+                <DateWidget />
             </box>
             <box spacing={5} cssName="end">
                 <Audio />

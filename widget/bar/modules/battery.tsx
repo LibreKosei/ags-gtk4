@@ -66,23 +66,13 @@ export const BatteryBar = () => {
     const battery = Battery.get_default()
 
     return <box valign={Gtk.Align.CENTER}>
-    <overlay heightRequest={20}>
-        <levelbar
-            setup={self => {
-                self.add_offset_value("my-low", 0.4)
-                self.add_offset_value("medium", 0.6)
-            }}
-            value={bind(battery, "percentage")}
-            widthRequest={100}
-        />
+    <box heightRequest={20} cssName="battery">
         <MaterialSymbol setup={self => {
             hook(self, battery, "notify", () => {
                 self.label = matchBatL(battery.percentage * 100, battery.charging)
             })
         }} 
             icon={matchBatL(battery.percentage * 100, battery.charging)}
-            type="overlay"
-            halign={Gtk.Align.START}
         />
         <label 
             label={bind(battery, "percentage").as(p => `${Math.floor(p * 100)}%`)}
@@ -91,9 +81,15 @@ export const BatteryBar = () => {
                     if (battery.percentage <= 0.5) self.cssClasses = ["half"]
                 })
             }}
-            type="overlay" 
-            halign={Gtk.Align.CENTER}
         />
-    </overlay>
+        <levelbar
+            setup={self => {
+                self.add_offset_value("my-low", 0.4)
+                self.add_offset_value("medium", 0.6)
+            }}
+            value={bind(battery, "percentage")}
+            widthRequest={100}
+        />
+    </box>
     </box>
 }

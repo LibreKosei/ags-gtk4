@@ -37,7 +37,7 @@ function AppButton({ app }: { app: Apps.Application }) {
 
 export default function Applauncher() {
     const { CENTER } = Gtk.Align
-    const apps = new Apps.Apps()
+    let apps = new Apps.Apps()
 
     const text = Variable("")
     const list = text(text => apps.fuzzy_query(text).slice(0, MAX_ITEMS))
@@ -80,7 +80,10 @@ export default function Applauncher() {
                         onActivate={onEnter}
                         hexpand={true}
                         setup={(self) => {
-                            self.connect("map", () => self.grab_focus())
+                            self.connect("map", () => {
+                                self.grab_focus()
+                                self.text = "" // This is needed to clear the entry, not sure how I can do this with its buffer
+                            })
                         }}
                     />
                 </box>

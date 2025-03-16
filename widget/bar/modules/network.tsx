@@ -59,7 +59,7 @@ export const WifiIndicator = () => {
         revealChild={reveal()}
         transitionType={Gtk.RevealerTransitionType.SLIDE_RIGHT}
       >
-          <label label={bind(wifi, "ssid")} 
+          <label label={bind(wifi, "ssid").as(String)} 
             onHoverLeave={() => reveal.set(false)}
             marginEnd={0}
           />

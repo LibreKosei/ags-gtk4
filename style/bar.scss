@@ -34,7 +34,7 @@ window.Bar {
         ws {
             font-size: 0;
             margin: 0 0.25rem;
-            background-color: $tertiary;
+            background-color: $outline;
             min-width: 0.6rem;
             min-height: 0.6rem;
             border-radius: 0.3rem;
@@ -60,64 +60,25 @@ window.Bar {
         color: $inverse-surface;
     }
 
-    popover {
-        background-color: $surface;
-        color: $on-surface;
-        min-width: 45px;
-        border-radius: 15px;
-        contents {
-            min-height: 150px;
-            margin: 5px;
-
-            calendar {
-                grid {
-                    label.day-number.other-month {
-                        color: transparent;
-                    }
-                    
-                    label.day-number.today {
-                        background-color: $primary-container;
-                        color: $on-primary-container;
-                    }
-                }
-            }
-            > scale {
-                > trough {
-                    background-color: $surface-container;
-                    min-width: 15px;
-                    border-radius: 15px;
-
-                    > highlight {
-                        background-color: $on-surface;
-                    }
-                    
-                    > slider {
-                        min-height: 15px;
-                        min-width: 15px;
-                        background-color: $on-surface;
-                        border-radius: 15px;
-                    }
-                }
-            }
-        }
-    }
-    overlay {
+    battery {
         margin-left: 1em;    
         border-radius: 1em;
-        color: $on-primary;
+        color: $primary;
         image {
-            color: $on-primary;
+            color: $primary;
         }
 
         label {
-            color: $overlay-color;
+            color: $primary;
+            margin-right: 0.5rem;
 
             &.half {
-                color: $inverse-primary
+                color: color.mix($error, lightgreen, 60%);
             }
         }
     }
     levelbar {
+        margin: 0.5rem 0;
         trough {
 
             & .filled {
