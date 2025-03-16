@@ -1,0 +1,63 @@
+@use "colors" as *;
+
+window#menu {
+    >box {
+        background-color: $surface-container;
+        border-radius: 0.8rem;
+        padding: 1rem;
+        margin: 0.5rem;
+        border: 1px solid $outline-variant;
+        color: $on-surface;
+    }
+
+    notifcolumn-header {
+        border-bottom: 1px solid $outline-variant;
+        padding: 0.8rem 1rem;
+        margin: 0 0 0.5rem 0;
+
+        button {
+            border-radius: 0.5rem;
+            padding: 0.4rem 0.75rem;
+            border: none;
+            background: $primary-container;
+            color: $on-primary-container;
+        }
+
+        button:hover {
+            background: $primary-fixed-dim;
+            color: $on-primary;
+        }
+    }
+
+    notifcolumn-scrollable {
+        background: $surface-container-low;
+        border-radius: 0.5rem;
+        padding: 0.5rem 0.8rem;
+        margin: 0.5rem 0 0 0;
+    }
+
+    datemenu {
+        >label {
+            color: $on-surface;
+            font-size: 2rem;
+            background-color: transparent;
+            border-radius: 0.25rem;
+            padding: 0.25rem 0.5rem;
+            margin: 0 0 0.5rem 0;
+        }
+
+        calendar {
+            border-radius: 0.75rem;
+            padding: 0.5rem 0.75rem;
+            margin: 0.5rem 0 0 0;
+            border: 1px solid $outline-variant;
+            background-color: $surface-container-highest;
+            color: $on-surface-variant;
+
+            label.day-number.today {
+                background-color: $primary;
+                color: $on-primary;
+            }
+        }
+    }
+}
