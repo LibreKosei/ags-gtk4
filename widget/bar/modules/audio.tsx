@@ -1,38 +1,7 @@
-import { bind, timeout, Variable } from "astal";
+import { bind, Variable } from "astal";
 import { MaterialSymbol } from "../../../util/Material";
 import Wp from "gi://AstalWp";
 import { Gtk, hook } from "astal/gtk4";
-
-
-export const Speaker = () => {
-    const speaker = Wp.get_default()?.audio.defaultSpeaker!
-
-    return <button 
-        onClicked={() => speaker.mute = !speaker.get_mute()}
-        cssName="applet"
-    >
-        <box>
-            <MaterialSymbol setup={self => {
-                hook(self, speaker, "notify", () => {
-                    const vol = speaker.volume * 100;
-                    const icon = [
-                        [101, "sound_detection_loud_sound"],
-                        [67, "volume_up"],
-                        [34, "volume_down"],
-                        [1, "volume_mute"],
-                        [0, "volume_off"]
-                    ].find( ([threshold]) => Number(threshold) <= vol)?.[1]
-                    if (speaker.mute) {
-                        self.label = "volume_off"
-                    } else {
-                        self.label = String(icon)
-                    }
-                })
-            }} />
-            <label label={bind(speaker, "volume").as(v => `${Math.floor(v * 100)}%`)} />
-        </box>
-    </button>
-}
 
 export const Audio = () => {
     const speaker = Wp.get_default()?.audio.defaultSpeaker!
@@ -77,47 +46,5 @@ export const Audio = () => {
             />
         </revealer>
     </box>
-    )
-}
-export const Volume = () => {
-    const speaker = Wp.get_default()?.audio.defaultSpeaker!
-    const reveal = Variable(false)
-
-    return (
-    <menubutton>
-        <box cssName="applet" widthRequest={70}>
-        <MaterialSymbol setup={self => {
-            hook(self, speaker, "notify", () => {
-                const vol = speaker.volume * 100;
-                const icon = [
-                    [101, "sound_detection_loud_sound"],
-                    [67, "volume_up"],
-                    [34, "volume_down"],
-                    [1, "volume_mute"],
-                    [0, "volume_off"]
-                ].find( ([threshold]) => Number(threshold) <= vol)?.[1]
-                if (speaker.mute) {
-                    self.label = "volume_off"
-                } else {
-                    self.label = String(icon)
-                }
-            })
-        }} />
-        <label label={bind(speaker, "volume").as(v => `${Math.floor(v * 100)}%`)} />
-        </box>
-        <popover>
-            <slider 
-            orientation={Gtk.Orientation.VERTICAL}
-            value={bind(speaker, "volume")}
-            step={0.01}
-            min={0}
-            max={1.5}
-            inverted
-            onChangeValue={(self) => {
-                speaker.volume = self.value
-            }}
-            />
-        </popover>
-    </menubutton>
     )
 }

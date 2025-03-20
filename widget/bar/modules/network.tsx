@@ -11,27 +11,6 @@ const material_symbols = {
   "network-wireless-signal-none-symbolic": "signal_wifi_0_bar",
 };
 
-export const Wifi = () => {
-  const wifi = Network.get_default().wifi;
-
-  return <box cssName="applet" spacing={5}>
-      <MaterialSymbol icon={material_symbols[wifi.icon_name]}
-          setup={self => {
-              hook(self, wifi, "notify", () => {
-                  if (wifi.enabled) {
-                      self.label = material_symbols[wifi.icon_name]
-                      self.tooltipText = wifi.ssid || "Unknown"
-                  } else {
-                      self.label = "signal_wifi_off"
-                      self.tooltipText = "Disabled"
-                  }
-              })
-          }}
-      />
-      <label label={bind(wifi, "ssid")} />
-  </box>
-}
-
 export const WifiIndicator = () => {
   const wifi = Network.get_default().wifi;
   const reveal = Variable(false)

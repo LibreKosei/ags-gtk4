@@ -3,6 +3,7 @@ import { App, Astal, Gdk, Gtk } from "astal/gtk4"
 import { Variable } from "astal"
 import { MaterialSymbol } from "../../util/Material"
 import { PopupWindow } from "../PopupWindow"
+import { Scrollable } from "../../util/astalified"
 
 const MAX_ITEMS = 8
 
@@ -40,7 +41,7 @@ export default function Applauncher() {
     let apps = new Apps.Apps()
 
     const text = Variable("")
-    const list = text(text => apps.fuzzy_query(text).slice(0, MAX_ITEMS))
+    const list = text(text => apps.fuzzy_query(text))
     const onEnter = () => {
         apps.fuzzy_query(text.get())?.[0].launch()
         hide()
@@ -55,6 +56,7 @@ export default function Applauncher() {
         defaultHeight={600}
         animation="slide down"
         onShow={() => {
+            apps.reload()
             text.set("")
         }}
         onHide={() => {
@@ -67,12 +69,6 @@ export default function Applauncher() {
         }}>
             <box widthRequest={500} cssClasses={["Applauncher"]} vertical>
                 <box valign={Gtk.Align.CENTER}>
-                    <button onClicked={() => {
-                        apps.reload()
-                      }
-                    }>
-                        <MaterialSymbol icon="refresh"/>
-                    </button>
                     <entry
                         placeholderText="Search"
                         text={text.get()}
@@ -87,11 +83,13 @@ export default function Applauncher() {
                         }}
                     />
                 </box>
+                <Scrollable heightRequest={500} hscrollbar-policy={Gtk.PolicyType.NEVER}>
                 <box spacing={6} vertical>
                     {list.as(list => list.map(app => (
                         <AppButton app={app} />
                     )))}
                 </box>
+                </Scrollable>
                 <box
                     halign={CENTER}
                     cssClasses={["not-found"]}

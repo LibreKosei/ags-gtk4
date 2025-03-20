@@ -1,59 +1,10 @@
 import AstalNotifd from "gi://AstalNotifd";
 import { Scrollable } from "../../util/astalified";
-import { bind, timeout } from "astal";
-import { Gtk, hook, Widget } from "astal/gtk4";
+import { bind } from "astal";
+import { Gtk } from "astal/gtk4";
 import Notification from "../notification/notification";
 
 const notifd = AstalNotifd.get_default()
-
-const Animated = (n: AstalNotifd.Notification) => Widget.Revealer({
-    transition_duration: 300,
-    transition_type: Gtk.RevealerTransitionType.SLIDE_DOWN,
-    child: Notification({notification: n}),
-    setup: self => timeout(300, () => {
-        if (!self.parent) return
-        self.revealChild = true
-    })
-})
-
-const Notificationlist = () => {
-    const map: Map<number, any> = new Map()
-    const box = Widget.Box({
-        vertical: true,
-        children: notifd.notifications.map(n => {
-            const w = Animated(n)
-            map.set(n.id, w)
-            return w
-        }),
-        visible: bind(notifd, "notifications").as(n => n.length > 0),
-        setup: self => {
-            hook(self, notifd, "resolved", remove)
-            hook(self, notifd, "notified", (_, id: number) => {
-                if (id !== undefined) {
-                    if (map.has(id)) {
-                        remove(null, id)
-                    }
-                    const n = notifd.get_notification(id)!
-                    const w = Animated(n)
-                    map.set(id, w)
-                    box.children = [w, ...box.children]
-                }
-            })
-        }
-    })
-
-    function remove(_: unknown, id: number) {
-        const n = map.get(id)
-        if (n) {
-            n.revealChild = false
-            timeout(300, () => {
-                const parent = n.parent!
-                parent.remove(n)
-                map.delete(id)
-            })
-        }
-    }
-}
 
 export const NotificationColumn = () => {
     return <box 

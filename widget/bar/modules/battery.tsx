@@ -2,7 +2,6 @@ import Battery from "gi://AstalBattery";
 import { MaterialSymbol } from "../../../util/Material";
 import { bind } from "astal";
 import { Gtk, hook } from "astal/gtk4";
-import { ProgressBar } from "../../../util/astalified";
 
 const battery_icons = {
     charging: {
@@ -42,24 +41,6 @@ function matchBatL(level, charging) {
     }
   }
   return array[levels[levels.length - 1]];
-}
-
-export const Bat = () => {
-    const battery = Battery.get_default()
-
-    return <box
-        cssName="applet"
-        tooltipText={bind(battery, "percentage").as(p => `Battery ${Math.floor(p * 100)}%`)}
-    >
-        <MaterialSymbol setup={self => {
-            hook(self, battery, "notify", () => {
-                self.label = matchBatL(battery.percentage * 100, battery.charging)
-            })
-        }} 
-            icon={matchBatL(battery.percentage * 100, battery.charging)}
-        />
-        <label label={bind(battery, "percentage").as(p => `${Math.floor(p * 100)}%`)} />
-    </box>
 }
 
 export const BatteryBar = () => {

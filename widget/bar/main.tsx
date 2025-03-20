@@ -1,9 +1,9 @@
 import { Audio } from "./modules/audio";
-import { Bat, BatteryBar } from "./modules/battery";
+import { BatteryBar } from "./modules/battery";
 import { WifiIndicator } from "./modules/network";
-import { Workspaces, WS } from "./modules/workspace";
+import { Workspaces } from "./modules/workspace";
 import { App, Astal, Gtk } from "astal/gtk4";
-import { Datemenu, DateWidget } from "./modules/datemenu";
+import { DateWidget } from "./modules/datemenu";
 import { Client } from "./modules/client";
 
 export const Bar = () => {
@@ -31,14 +31,4 @@ export const Bar = () => {
             </box>
         </centerbox>
     </window>
-}
-
-const Old = () => {
-    return <box spacing={5}>
-        <box cssName="applet">
-        <Audio />
-        <WifiIndicator />
-        <Bat />
-        </box>
-    </box>
 }

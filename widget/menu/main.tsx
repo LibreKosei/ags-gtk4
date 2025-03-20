@@ -1,4 +1,4 @@
-import { Astal, Gtk } from "astal/gtk4";
+import { Astal } from "astal/gtk4";
 import { DateMenu } from "./Calendar"
 import { PopupWindow } from "../PopupWindow"
 import { NotificationColumn } from "./notificationColumn"

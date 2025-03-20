@@ -13,7 +13,7 @@ window#launcher {
     all: unset;
 
     box.Applauncher {
-        background-color: $surface-container-lowest;
+        background-color: $surface-container;
         border-radius: 11px;
         margin: 1rem;
         padding: .8rem;
@@ -39,6 +39,8 @@ window#launcher {
             min-width: 0;
             min-height: 0;
             padding: .5rem;
+            border-radius: 2rem;
+            background-color: $surface-container-highest;
 
             image {
                 -gtk-icon-size: 3em;
@@ -52,7 +54,7 @@ window#launcher {
             }
 
             label.description {
-                color: $outline;
+                color: $on-surface-variant;
             }
         }
 
