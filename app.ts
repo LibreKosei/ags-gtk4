@@ -1,11 +1,12 @@
 import { App } from "astal/gtk4"
 import style from "./style.scss"
 import { Bar } from "./widget/bar/main"
-import { exec, execAsync, monitorFile } from "astal"
+import { exec, execAsync, GLib, monitorFile, writeFileAsync } from "astal"
 import Applauncher from "./widget/applauncher/applauncher"
 import { NotificationPopup } from "./widget/notification/notifPopups"
 import { windowAnimation } from "./util/hyprland"
 import { Menu } from "./widget/menu/main"
+import { monitorWallpaper } from "./util/theme"
 
 
 const scss = "./style/style.scss"
@@ -31,5 +32,7 @@ App.start({
             App.reset_css()
             App.apply_css(css)
         })
+        
+        monitorWallpaper()
     },
 })

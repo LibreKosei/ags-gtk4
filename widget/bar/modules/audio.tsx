@@ -14,6 +14,13 @@ export const Audio = () => {
                 reveal.set(false)
             }
         }}
+        onScroll={(self, _, dy) => {
+            if (dy < 0) {
+                speaker.volume += 0.01
+            } else {
+                speaker.volume -= 0.01
+            }
+        }}
     >
         <button 
           onClicked={() => {
